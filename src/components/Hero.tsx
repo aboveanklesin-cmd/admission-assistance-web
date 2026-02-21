@@ -1,7 +1,7 @@
-import { Badge } from 'lucide-react';
-import { CountdownTimer } from './CountdownTimer';
-import { CounsellingForm } from './CounsellingForm';
-import { Button } from './Button';
+import { Badge } from "lucide-react";
+import { CountdownTimer } from "./CountdownTimer";
+import { CounsellingForm } from "./CounsellingForm";
+import { Button } from "./Button";
 
 export function Hero() {
   return (
@@ -33,16 +33,16 @@ export function Hero() {
               "
             >
               <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight mb-6">
-                Enhance Your Career with an Online MBA for
+                Enhance Your Career with an Online MBA
                 <span className="inline-block mt-3 bg-yellow-500 text-gray-900 px-4 py-2 rounded-lg">
-                  New-Age Leaders
+                  for New-Age Leaders
                 </span>
               </h1>
 
               {/* Countdown */}
               <div className="mb-8">
                 <p className="text-sm text-gray-300 mb-3">
-                  Admissions Close In:
+                  Applications Close In:
                 </p>
 
                 <div className="flex flex-wrap gap-4">
@@ -50,18 +50,20 @@ export function Hero() {
                 </div>
               </div>
 
-              {/* Buttons */}
-              <div className="flex flex-col sm:flex-row gap-4 mb-6">
-                <Button className="w-full sm:w-auto">
-                  Start Your Journey
-                </Button>
-
-                <Button
-                  variant="secondary"
-                  className="w-full sm:w-auto"
+              {/* Only Download Button */}
+              <div className="mb-6">
+                <a
+                  href="/Master of Business Administration.pdf"
+                  download
+                  className="w-full sm:w-auto inline-block"
                 >
-                  Download Brochure
-                </Button>
+                  <Button
+                    variant="secondary"
+                    className="w-full sm:w-auto"
+                  >
+                    Download Brochure
+                  </Button>
+                </a>
               </div>
 
               {/* Badge */}

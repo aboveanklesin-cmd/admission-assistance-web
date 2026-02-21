@@ -1,5 +1,5 @@
 import { useState } from "react";
-import girlImage from "/public/career-woman.png";
+import girlImage from "/career-woman.png";
 
 export function FinalCTA() {
   const [formData, setFormData] = useState({
