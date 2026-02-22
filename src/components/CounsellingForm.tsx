@@ -6,12 +6,12 @@ import { useState } from 'react';
 
 const specializations = [
   { value: '', label: 'Select Specialization' },
-  { value: 'finance', label: 'Finance' },
-  { value: 'marketing', label: 'Marketing' },
-  { value: 'hr', label: 'Human Resources' },
-  { value: 'operations', label: 'Operations Management' },
-  { value: 'it', label: 'IT Management' },
-  { value: 'analytics', label: 'Business Analytics' },
+  { value: 'Finance', label: 'Finance' },
+  { value: 'Marketing', label: 'Marketing' },
+  { value: 'Human Resources', label: 'Human Resources' },
+  { value: 'Operations Management', label: 'Operations Management' },
+  { value: 'IT Management', label: 'IT Management' },
+  { value: 'Business Analytics', label: 'Business Analytics' },
 ];
 
 export function CounsellingForm() {
@@ -42,15 +42,20 @@ export function CounsellingForm() {
     setLoading(true);
 
     try {
-      await fetch("https://script.google.com/macros/s/AKfycbz_KAxaZCHjXAb7cfp30QrMdpUexYJ49PbuVaFvJ5gXHtSNcePGg3KgpqrRfjIBWIQ/exec", {
-        method: "POST",
-        body: JSON.stringify({
-          name: formData.fullName,
-          email: formData.email,
-          course: formData.specialization,
-          phone: formData.mobile,
-        }),
-      });
+      await fetch("https://script.google.com/macros/s/AKfycbwRjb9qvXQdu1ahQCpLCuRp1VQ-ItR6OIh52FOkoiNmiTsA5F0ryonbZVVQFno4WzQL/exec", {
+  method: "POST",
+  mode: "no-cors",
+  headers: {
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify({
+    name: formData.fullName,
+    email: formData.email,
+    course: formData.specialization,
+    phone: formData.mobile,
+  }),
+});
+
 
       setSuccess(true);
 

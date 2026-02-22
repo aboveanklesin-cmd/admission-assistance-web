@@ -30,7 +30,7 @@ export function FinalCTA() {
 
     try {
       await fetch(
-        "https://script.google.com/macros/s/AKfycbz_KAxaZCHjXAb7cfp30QrMdpUexYJ49PbuVaFvJ5gXHtSNcePGg3KgpqrRfjIBWIQ/exec",
+        "https://script.google.com/macros/s/AKfycbwRjb9qvXQdu1ahQCpLCuRp1VQ-ItR6OIh52FOkoiNmiTsA5F0ryonbZVVQFno4WzQL/exec",
         {
           method: "POST",
           body: JSON.stringify({
@@ -115,12 +115,12 @@ export function FinalCTA() {
                   required
                 >
                   <option value="">Select Specialization</option>
-                  <option value="finance">Finance</option>
-                  <option value="marketing">Marketing</option>
-                  <option value="hr">Human Resources</option>
-                  <option value="operations">Operations</option>
-                  <option value="it">IT Management</option>
-                  <option value="analytics">Business Analytics</option>
+                  <option value="Finance">Finance</option>
+                  <option value="Marketing">Marketing</option>
+                  <option value="Human Resources">Human Resources</option>
+                  <option value="Operations">Operations</option>
+                  <option value="IT Management">IT Management</option>
+                  <option value="Business Analytics">Business Analytics</option>
                 </select>
 
                 <input
@@ -210,11 +210,61 @@ export function FinalCTA() {
         </div>
       )}
 
-      {/* DISCLAIMER (unchanged) */}
-      {/* DISCLAIMER */} <div className="container mx-auto px-6 relative z-30 pb-16"> 
-        <div className=" bg-gray-100 rounded-3xl p-8 max-w-5xl mx-auto mt-8 lg:-mt-28 shadow-md "> 
-          <p className="text-sm text-gray-600 mb-4"> Disclaimer: admissionassistance.com is a marketing service partner only. Amity University Online holds full rights to request changes or removal of any non-relevant content. Images used are for illustrative purposes and do not directly represent the respective colleges or universities. </p> 
-          <p className="text-sm text-gray-600 mb-4"> All logos/names belong to their respective owners and are used for information purposes only. Students are advised to verify all details from the official website - https://amityonline.com/ before taking admission. </p> <p className="text-xs text-center text-gray-700"> Copyright © 2026 All Rights Reserved |{" "} <span className="underline cursor-pointer">Disclaimer</span> |{" "} <span className="underline cursor-pointer">Terms & Conditions</span> |{" "} <span className="underline cursor-pointer">Privacy Policy</span> </p> </div> </div> </section>
+{/* DISCLAIMER */}
+<div className="container mx-auto px-6 relative z-30 pb-16">
+  <div className="bg-gray-100 rounded-3xl p-8 max-w-5xl mx-auto mt-8 lg:-mt-28 shadow-md">
+
+    <p className="text-sm text-gray-600 mb-4">
+      Disclaimer: admissionassistance.com operates as an independent
+      marketing and lead generation service. We are not the official
+      website of any university or institution. Amity University Online
+      and other respective institutions retain full rights to request
+      modifications or removal of any non-relevant content. Images used
+      on this website are for illustrative purposes only and may not
+      represent the exact institutions.
+    </p>
+
+    <p className="text-sm text-gray-600 mb-4">
+      All logos, trademarks, and brand names belong to their respective
+      owners and are used strictly for informational purposes. Students
+      are strongly advised to verify program details, eligibility,
+      admission processes, and fee structures directly from the official
+      university website before making any enrollment decision.
+    </p>
+
+    <p className="text-sm text-gray-600 mb-6">
+      By submitting your information on this website, you consent to
+      being contacted by Admission Assistance and its authorized partners
+      via call, SMS, WhatsApp, or email regarding your inquiry.
+    </p>
+
+    <p className="text-xs text-center text-gray-700">
+      Copyright © 2026 All Rights Reserved |{" "}
+      <a
+        href="/disclaimer"
+        className="underline hover:text-gray-900"
+      >
+        Disclaimer
+      </a>{" "}
+      |{" "}
+      <a
+        href="/terms-and-conditions"
+        className="underline hover:text-gray-900"
+      >
+        Terms & Conditions
+      </a>{" "}
+      |{" "}
+      <a
+        href="/privacy-policy"
+        className="underline hover:text-gray-900"
+      >
+        Privacy Policy
+      </a>
+    </p>
+
+  </div>
+</div>
+</section>
 
   );
 }
