@@ -27,10 +27,11 @@ export function CounsellingForm() {
   const [success, setSuccess] = useState(false);
   const [phoneError, setPhoneError] = useState("");
 
+      const phoneRegex = /^[6-9]\d{9}$/;
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const phoneRegex = /^[6-9]\d{9}$/;
 
     if (!phoneRegex.test(formData.mobile)) {
       setPhoneError("Please enter a valid 10-digit Indian mobile number");
@@ -42,20 +43,27 @@ export function CounsellingForm() {
     setLoading(true);
 
     try {
-      await fetch("https://script.google.com/macros/s/AKfycbwRjb9qvXQdu1ahQCpLCuRp1VQ-ItR6OIh52FOkoiNmiTsA5F0ryonbZVVQFno4WzQL/exec", {
-  method: "POST",
-  mode: "no-cors",
-  headers: {
-    "Content-Type": "application/json",
-  },
-  body: JSON.stringify({
-    name: formData.fullName,
-    email: formData.email,
-    course: formData.specialization,
-    phone: formData.mobile,
-  }),
-});
+      await fetch(
+        "https://script.google.com/macros/s/AKfycbwRjb9qvXQdu1ahQCpLCuRp1VQ-ItR6OIh52FOkoiNmiTsA5F0ryonbZVVQFno4WzQL/exec",
+        {
+          method: "POST",
+          mode: "no-cors",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name: formData.fullName,
+            email: formData.email,
+            course: formData.specialization,
+            phone: formData.mobile,
+          }),
+        }
+      );
 
+      // ✅ FIRE META LEAD EVENT
+      if (typeof window !== "undefined" && (window as any).fbq) {
+        (window as any).fbq("track", "Lead");
+      }
 
       setSuccess(true);
 
@@ -136,8 +144,6 @@ export function CounsellingForm() {
 
               if (value.length <= 10) {
                 setFormData({ ...formData, mobile: value });
-
-                const phoneRegex = /^[6-9]\d{9}$/;
 
                 if (value.length === 10 && !phoneRegex.test(value)) {
                   setPhoneError("Enter a valid Indian mobile number");

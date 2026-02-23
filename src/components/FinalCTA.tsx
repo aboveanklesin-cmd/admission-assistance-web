@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import girlImage from "/career-woman.png";
 
 export function FinalCTA() {
@@ -14,10 +15,10 @@ export function FinalCTA() {
   const [success, setSuccess] = useState(false);
   const [phoneError, setPhoneError] = useState("");
 
+  const phoneRegex = /^[6-9]\d{9}$/;
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    const phoneRegex = /^[6-9]\d{9}$/;
 
     if (!phoneRegex.test(formData.mobile)) {
       setPhoneError("Please enter a valid 10-digit Indian mobile number");
@@ -29,7 +30,7 @@ export function FinalCTA() {
     setLoading(true);
 
     try {
-      await fetch(
+      const response = await fetch(
         "https://script.google.com/macros/s/AKfycbwRjb9qvXQdu1ahQCpLCuRp1VQ-ItR6OIh52FOkoiNmiTsA5F0ryonbZVVQFno4WzQL/exec",
         {
           method: "POST",
@@ -42,18 +43,24 @@ export function FinalCTA() {
         }
       );
 
-      setSuccess(true);
+      if (response.ok) {
+        // ✅ FIRE META LEAD EVENT
+        if (typeof window !== "undefined" && (window as any).fbq) {
+          (window as any).fbq("track", "Lead");
+        }
 
-      setFormData({
-        name: "",
-        email: "",
-        specialization: "",
-        mobile: "",
-        consent: false,
-      });
-
-      setPhoneError("");
-
+        setSuccess(true);
+        setFormData({
+          name: "",
+          email: "",
+          specialization: "",
+          mobile: "",
+          consent: false,
+        });
+        setPhoneError("");
+      } else {
+        alert("Submission failed. Please try again.");
+      }
     } catch (error) {
       alert("Something went wrong. Please try again.");
     }
@@ -63,25 +70,22 @@ export function FinalCTA() {
 
   return (
     <section className="bg-white overflow-hidden">
-
-      {/* TOP WHITE AREA */}
+      {/* HEADER */}
       <div className="container mx-auto px-6 pt-12 pb-6 lg:pl-32">
         <h2 className="text-4xl font-bold text-gray-900 mb-2">
           Advance Your Career
         </h2>
         <p className="text-gray-600 max-w-md">
-          Fill in your information, and our team will connect with you shortly
+          Fill in your information and our counselling team will contact you shortly.
         </p>
       </div>
 
       {/* BLUE SECTION */}
       <div className="bg-[#142E5C] relative">
         <div className="container mx-auto px-6 relative">
-
           {/* FORM */}
           <div className="relative z-10 max-w-xl py-16 lg:ml-20">
             <form onSubmit={handleSubmit} className="space-y-4">
-
               <div className="grid md:grid-cols-2 gap-4">
                 <input
                   type="text"
@@ -93,6 +97,7 @@ export function FinalCTA() {
                   className="h-11 px-4 rounded-md bg-gray-200 w-full outline-none"
                   required
                 />
+
                 <input
                   type="email"
                   placeholder="Enter Email"
@@ -132,7 +137,6 @@ export function FinalCTA() {
                     if (value.length <= 10) {
                       setFormData({ ...formData, mobile: value });
 
-                      const phoneRegex = /^[6-9]\d{9}$/;
                       if (value.length === 10 && !phoneRegex.test(value)) {
                         setPhoneError("Enter valid Indian mobile number");
                       } else {
@@ -162,8 +166,15 @@ export function FinalCTA() {
                   required
                 />
                 <p>
-                  I agree to receive calls, WhatsApp & emails from admissionassistance.com
-                  for Amity Online & similar UGC-approved programs.
+                  I agree to receive calls, WhatsApp messages & emails from
+                  Admission Assistance and its authorized partners regarding
+                  admission guidance. I also agree to the{" "}
+                  <Link
+                    to="/privacy-policy"
+                    className="underline text-yellow-300 hover:text-yellow-400"
+                  >
+                    Privacy Policy
+                  </Link>.
                 </p>
               </div>
 
@@ -174,23 +185,19 @@ export function FinalCTA() {
               >
                 {loading ? "Submitting..." : "Submit"}
               </button>
-
             </form>
           </div>
 
-          {/* GIRL IMAGE */}
           <div className="hidden lg:block absolute -bottom-6 right-[16%] z-20">
             <img
               src={girlImage}
-              alt="Counsellor"
+              alt="Career Counsellor"
               className="h-[500px] max-h-[90%] object-contain"
             />
           </div>
-
         </div>
       </div>
 
-      {/* SUCCESS POPUP */}
       {success && (
         <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
           <div className="bg-white rounded-2xl p-8 max-w-sm w-full text-center shadow-2xl">
@@ -198,7 +205,7 @@ export function FinalCTA() {
               🎉 Thank You!
             </h3>
             <p className="text-gray-600 mb-6">
-              Thank you for submitting the form. Our team will contact you shortly.
+              Our team will contact you shortly.
             </p>
             <button
               onClick={() => setSuccess(false)}
@@ -210,61 +217,36 @@ export function FinalCTA() {
         </div>
       )}
 
-{/* DISCLAIMER */}
-<div className="container mx-auto px-6 relative z-30 pb-16">
-  <div className="bg-gray-100 rounded-3xl p-8 max-w-5xl mx-auto mt-8 lg:-mt-28 shadow-md">
+      <div className="container mx-auto px-6 relative z-30 pb-16">
+        <div className="bg-gray-100 rounded-3xl p-8 max-w-5xl mx-auto mt-8 lg:-mt-28 shadow-md">
+          <p className="text-sm text-gray-600 mb-4">
+            admissionassistance.com operates as an independent marketing and
+            lead generation service. We are not the official website of any
+            university or institution.
+          </p>
 
-    <p className="text-sm text-gray-600 mb-4">
-      Disclaimer: admissionassistance.com operates as an independent
-      marketing and lead generation service. We are not the official
-      website of any university or institution. Amity University Online
-      and other respective institutions retain full rights to request
-      modifications or removal of any non-relevant content. Images used
-      on this website are for illustrative purposes only and may not
-      represent the exact institutions.
-    </p>
+          <p className="text-sm text-gray-600 mb-4">
+            All logos and trademarks belong to their respective owners and are
+            used for informational purposes only. Students are advised to verify
+            all details from official university websites before taking admission.
+          </p>
 
-    <p className="text-sm text-gray-600 mb-4">
-      All logos, trademarks, and brand names belong to their respective
-      owners and are used strictly for informational purposes. Students
-      are strongly advised to verify program details, eligibility,
-      admission processes, and fee structures directly from the official
-      university website before making any enrollment decision.
-    </p>
-
-    <p className="text-sm text-gray-600 mb-6">
-      By submitting your information on this website, you consent to
-      being contacted by Admission Assistance and its authorized partners
-      via call, SMS, WhatsApp, or email regarding your inquiry.
-    </p>
-
-    <p className="text-xs text-center text-gray-700">
-      Copyright © 2026 All Rights Reserved |{" "}
-      <a
-        href="/disclaimer"
-        className="underline hover:text-gray-900"
-      >
-        Disclaimer
-      </a>{" "}
-      |{" "}
-      <a
-        href="/terms-and-conditions"
-        className="underline hover:text-gray-900"
-      >
-        Terms & Conditions
-      </a>{" "}
-      |{" "}
-      <a
-        href="/privacy-policy"
-        className="underline hover:text-gray-900"
-      >
-        Privacy Policy
-      </a>
-    </p>
-
-  </div>
-</div>
-</section>
-
+          <p className="text-xs text-center text-gray-700">
+            © 2026 Admission Assistance |{" "}
+            <Link to="/disclaimer" className="underline hover:text-gray-900">
+              Disclaimer
+            </Link>{" "}
+            |{" "}
+            <Link to="/terms-and-conditions" className="underline hover:text-gray-900">
+              Terms & Conditions
+            </Link>{" "}
+            |{" "}
+            <Link to="/privacy-policy" className="underline hover:text-gray-900">
+              Privacy Policy
+            </Link>
+          </p>
+        </div>
+      </div>
+    </section>
   );
 }
